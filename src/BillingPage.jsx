@@ -12,6 +12,7 @@ import InvoiceTable from "./InvoiceTable";
 const BillingPage = () => {
     const [startDate, setStartDate] = useState();
     const [toDate, setToDate] = useState();
+    const [type,setType]=useState("Consultation")
   
     const [paymentHistory, setPaymentHistory] = useState(true);
     const CustomInput = ({ value, onClick }) => (
@@ -79,21 +80,39 @@ const BillingPage = () => {
               <div className="payment-package-div">
                 <div className="row d-flex pt-2 pb-3">
                   <div className="col d-flex align-items-center ps-5">
-                    <label className="me-2">My Package</label>
-                    <select className="payment-select-field">
-                      <option value="" disabled selected>
-                        Select Package
+                    <label className="me-2">Type</label>
+                    <select value={type} onChange={(e)=>setType(e.target.value)} className="payment-select-field">
+                      <option>
+                       Consultation
                       </option>
-                      <option></option>
+                      <option>
+                        Asset
+                      </option>
                     </select>
                   </div>
                   <div className="col d-flex align-items-center">
                     <label className="me-2">Template</label>
                     <select className="payment-select-field">
-                      <option value="" disabled selected>
-                        Select Package
-                      </option>
-                      <option></option>
+                      { type === "Consultation" &&
+                    <>
+                      <option>Dr Karunakaran</option>
+                      <option>Dr. Suresh</option>
+
+
+                      </>
+                    }{
+                      type === "Asset" &&
+                      <>
+                       <option value="Super Inductive System">Super Inductive System</option>
+                        <option value="Tecar Therapy">Tecar Therapy</option>
+                        <option value="Shockwave Therapy">Shockwave Therapy</option>
+                        <option value="Dry Needling Therapy">Dry Needling Therapy</option>
+                        <option value="Tapping Therapy">Tapping Therapy</option>
+                        <option value="Laser Therapy">Laser Therapy</option>
+                        <option value="Pens Therapy">Pens Therapy</option>
+                        <option value="UST,IFT,TENS,MST,RST,TRACTION">UST,IFT,TENS,MST,RST,TRACTION</option>
+                        <option value="Cryotherapy">Cryotherapy</option></>
+                    }
                     </select>
                   </div>
                   <div className="col d-flex justify-content-end align-items-center ">

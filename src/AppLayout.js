@@ -201,6 +201,12 @@ export default function AppLayout({ children }) {
             menu_url: "home/template/medicine",
             visible: false,
           },
+          {
+          
+            menu_name: "Physio Item Master",
+            menu_url: "home/template/Physiotherapy",
+            visible: false,
+          },
         
 
       ],

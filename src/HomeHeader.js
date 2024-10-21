@@ -16,7 +16,7 @@ const Header = () => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-const baseUrl = "https://tabsquareinfotech.com/App/Abinesh_be_work/tsit_prami/build"
+const baseUrl = "https://tabsquareinfotech.com/TSIT_Clients/vprami"
 
   return (
     <div className="d-flex flex-row align-items-center navbar h-auto p-0">

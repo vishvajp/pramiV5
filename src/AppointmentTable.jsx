@@ -6,6 +6,7 @@ import { FaRegMoneyBillAlt } from "react-icons/fa";
 import { FaPlayCircle } from "react-icons/fa";
 import { GiCancel } from "react-icons/gi";
 import { LuRefreshCw } from "react-icons/lu";
+import { AiOutlineHistory } from "react-icons/ai";
 
 export function AppointmentTable({
   showModal,
@@ -240,6 +241,12 @@ export function AppointmentTable({
         <div className="refresh-icons-div">
           <GiCancel
             style={{ height: "23px", width: "23px", color: "red" }}
+            className="refresh-icon"
+          />
+        </div>
+        <div className="refresh-icons-div">
+          <AiOutlineHistory
+            style={{ height: "23px", width: "23px", color: "green" }}
             className="refresh-icon"
           />
         </div>
