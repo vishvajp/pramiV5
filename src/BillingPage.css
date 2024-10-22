@@ -11,24 +11,43 @@
 }
 
 .billing-cost-text {
-    width: 70px;
+    width: 10%; /* Adjust percentage as needed */
+    max-width: 100px; /* Keeps maximum limit */
 }
 
 .billing-cgst-text {
-    width: 100px;
+    width: 10%; /* Adjust percentage as needed */
+    max-width: 130px; /* Keeps maximum limit */
 }
+
 .billing-sgst-text {
-    width: 81px;
+    width: 7%; /* Adjust percentage as needed */
+    max-width: 110px; /* Keeps maximum limit */
 }
+
 .billing-qty-text {
-    width: 97px;
+    width: 8%; /* Adjust percentage as needed */
+    max-width: 120px; /* Keeps maximum limit */
 }
 
 .billing-total-text {
-    width: 105px;
+    width: 10%; /* Adjust percentage as needed */
+    max-width: 130px; /* Keeps maximum limit */
 }
+
 .billing-balance-text {
-    width: 108px;
+    width: 8%; /* Adjust percentage as needed */
+    max-width: 130px; /* Keeps maximum limit */
+}
+
+.billing-recieved-text{
+    width: 9%; /* Adjust percentage as needed */
+    max-width: 130px
+}
+
+.billing-discount-text{
+    width: 11%; /* Adjust percentage as needed */
+    max-width: 130px
 }
 .billing-header {
     background-color: white;
@@ -50,7 +69,8 @@
 }
 
 .billing-treatment-text {
-    width: 219px;
+    max-width: 250px;
+    width: 19%;
 }
 .billing-table-div {
 

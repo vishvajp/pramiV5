@@ -311,8 +311,8 @@ console.log(treatmentType)
                       <select name="man" id="appointment" onChange={handleTreatmentType}>
                         <option></option>
                         <option value="Consulatation">Consulataiton</option>
-                      <option value="Asset">Asset</option>
-                     
+                      <option value="Clinic Physio Asset">Clinic Physio Asset</option>
+                     <option value = "Home Care Asset">Home Care Asset</option>
                       </select>
                     </div>
                     <div className="d-flex flex-column col">
@@ -358,12 +358,12 @@ console.log(treatmentType)
                   )}
                 </div>
                   </div>
-                  {treatmentType==="Asset" &&
+                  {treatmentType==="Clinic Physio Asset" &&
                   <div className="d-flex flex-column mt-2 ">
                       <label className="patientbooking-input-label ms-3">
-                     Assets
+                      Clinic Physio Asset
                       </label>
-                      <select  id="referal">
+                      <select  id="appointment">
                         <option value=""></option>
                         <option value="Super Inductive System">Super Inductive System</option>
                         <option value="Tecar Therapy">Tecar Therapy</option>

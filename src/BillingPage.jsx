@@ -86,7 +86,10 @@ const BillingPage = () => {
                        Consultation
                       </option>
                       <option>
-                        Asset
+                      Clinic Physion Asset
+                      </option>
+                      <option>
+                      Home Care Asset
                       </option>
                     </select>
                   </div>
@@ -101,7 +104,7 @@ const BillingPage = () => {
 
                       </>
                     }{
-                      type === "Asset" &&
+                      type === "Clinic Physion Asset" &&
                       <>
                        <option value="Super Inductive System">Super Inductive System</option>
                         <option value="Tecar Therapy">Tecar Therapy</option>
@@ -132,7 +135,7 @@ const BillingPage = () => {
                     <div className="billing-qty-text d-flex justify-content-center">
                       Qty
                     </div>
-                    <div className="payment-discount-text d-flex justify-content-center">
+                    <div className="billing-discount-text d-flex justify-content-center">
                       Discount
                     </div>
                     <div className="billing-cgst-text d-flex justify-content-center">
@@ -144,7 +147,7 @@ const BillingPage = () => {
                     <div className="billing-total-text d-flex justify-content-center">
                       Total Cost
                     </div>
-                    <div className="payment-recieved-text d-flex justify-content-center">
+                    <div className="billing-recieved-text d-flex justify-content-center">
                       Recieved
                     </div>
                     <div className="billing-balance-text d-flex justify-content-center">

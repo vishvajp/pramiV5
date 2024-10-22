@@ -160,7 +160,7 @@ export default function AppLayout({ children }) {
           visible: false,
         },
         {
-          menu_name: "Lab",
+          menu_name: "Medicine",
           menu_url: "home/patient/treatment",
           visible: false,
         },

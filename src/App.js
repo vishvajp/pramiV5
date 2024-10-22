@@ -49,6 +49,7 @@ import AddPhysiotherapy from "./AddPhysiotherapy";
 import MenuLab from "./MenuLab";
 import MenuLabTestStatsModal from "./MenuLabTestStatsModal";
 import PhysioMaster from "./PhysioMaster";
+import InventoryPage from "./InventoryPage";
 
 function App() {
   const [docDetailData, setDocDetailData] = useState();
@@ -351,6 +352,15 @@ function App() {
         element={
           <AppLayout>
             <PhysioMaster/>
+            </AppLayout>
+        }
+        ></Route>
+
+<Route 
+        path ="home/inventory"
+        element={
+          <AppLayout>
+            <InventoryPage/>
             </AppLayout>
         }
         ></Route>

@@ -7,9 +7,10 @@ import DoctorFeeTable from "./DoctorFeeTable";
 
 const DoctorFee = () => {
   const [totalData, setTotalData] = useState(null);
-  const [totalPageCount, setTotalPageCount] = useState(null);
+ 
   const [startDate, setStartDate] = useState();
   const [toDate, setToDate] = useState();
+  const [totalPageCount, setTotalPageCount] = useState(null);
   const [pageCount, setPageCount] = useState(1);
   const [selectTreatment, setSelectTreatment] = useState("All");
   const [selectedUser, setSelectedUser] = useState(""); // Add this line
