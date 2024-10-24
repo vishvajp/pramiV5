@@ -4,16 +4,16 @@ import Table from "react-bootstrap/Table";
 const RegisterPatientTable = ({searchInput}) => {
     const tableHeader = [
         {
-          name: "Reg_No",
+          name: "Admission_No",
         },
         {
-          name: "Reg_Date",
+          name: "Admission_Date",
         },
         {
           name: "Name",
         },
         {
-          name: "Reg_Address",
+          name: "Address",
         },
         {
           name: "Mobile",

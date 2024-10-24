@@ -7,7 +7,7 @@ import HomePage from "./HomePage";
 import Patient from "./Patient";
 import Preference from "./Preference";
 import Login from "./Login";
-import Register from "./Register";
+// import Register from "./Register";
 import Profile from "./Profile";
 import Doctor from "./Doctor";
 import Doctordetails from "./Doctordetails";
@@ -50,6 +50,9 @@ import MenuLab from "./MenuLab";
 import MenuLabTestStatsModal from "./MenuLabTestStatsModal";
 import PhysioMaster from "./PhysioMaster";
 import InventoryPage from "./InventoryPage";
+import LabTestPage from "./LabTestPage";
+import LabTestPatientMoreBut from "./LabTestPatientMoreBut";
+import RegistrationPage from "./RegistrationPage";
 
 function App() {
   const [docDetailData, setDocDetailData] = useState();
@@ -80,7 +83,7 @@ function App() {
           element={<IntroPage getDetailFromIntro={getDetailFromIntro} baseUrl={baseUrl} />}
         />
         <Route path="/login" element={<Login introData={introData} baseUrl={baseUrl} />} />
-        <Route path="/register" element={<Register />} />
+        {/* <Route path="/register" element={<Register />} /> */}
         <Route
           path="/home/dashboard"
           element={
@@ -210,7 +213,7 @@ function App() {
         <Route path="/home/addprofile" element={<AddProfileModal />}></Route>
 
         <Route
-          path="/home/registerpatient"
+          path="/home/patientadmission"
           element={
             <AppLayout>
               <RegisterPatient></RegisterPatient>
@@ -283,7 +286,7 @@ function App() {
           }
         ></Route>
         <Route
-          path="home/lab"
+          path="home/template/lab"
           element={
             <AppLayout>
               <MenuLab />
@@ -364,7 +367,31 @@ function App() {
             </AppLayout>
         }
         ></Route>
-        
+
+        <Route 
+        path ="home/labtest"
+        element={
+          <AppLayout>
+            <LabTestPage/>
+            </AppLayout>
+        }
+        ></Route>
+            <Route 
+        path ="home/lab/moredetail"
+        element={
+          <AppLayout>
+            <LabTestPatientMoreBut/>
+            </AppLayout>
+        }
+        ></Route>
+         <Route 
+        path ="home/registration"
+        element={
+          <AppLayout>
+            <RegistrationPage/>
+            </AppLayout>
+        }
+        ></Route>
       </Routes>
     </div>
   );

@@ -205,7 +205,7 @@ const MedicalHistory = () => {
                   </div>
                 </div>
               </div>
-              <div className="d-flex flex-column col">
+              {/* <div className="d-flex flex-column col">
                 <label className="medichistory-lable">
                   {" "}
                   Do you suffer from back pain?
@@ -226,7 +226,7 @@ const MedicalHistory = () => {
                     <label>No</label>
                   </div>
                 </div>
-              </div>
+              </div> */}
               <div className="col d-flex flex-column">
                 <label className="medichistory-lable">
                   {" "}

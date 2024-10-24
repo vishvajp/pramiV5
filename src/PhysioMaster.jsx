@@ -51,7 +51,7 @@ const PhysioMaster = () => {
       </div>
       <div className="col medicinemaster-2nd-col">
 <div className="d-flex justify-content-center">
-  <span className="medicinemaster-2nd-col-tabletitle">New Medicine Details</span>
+  <span className="medicinemaster-2nd-col-tabletitle">New Physio Details</span>
 </div>
 <div>
   <PhysioMasterTable/>

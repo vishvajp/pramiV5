@@ -32,7 +32,7 @@ const Basicdetailmodal = ({
         onOk={basichandleOk}
       >
         <div className="d-flex align-items-end parameter-1st-container">
-          <p className="mb-0 parameter-parameter-text">Basic Details</p>
+          <p className="mb-0 parameter-parameter-text">Admission</p>
           <div className="parameter-img-pencil">
             <img
               className=" docimage ms-2"
@@ -53,7 +53,7 @@ const Basicdetailmodal = ({
           <div className="col basicdetail-1st-col">
             <div className="mb-2">
               <span className="basic-modal-titel">
-                Registration Date and Time
+               Admission Date and Time
               </span>
             </div>
             <div className="row mb-2">
@@ -635,7 +635,7 @@ const Basicdetailmodal = ({
                   CANCEL
                 </button>
                 <button className=" basicdetail-register-button">
-                  REGISTER
+                SUBMIT
                 </button>
               </div>
             </div>

@@ -116,6 +116,13 @@ export default function AppLayout({ children }) {
       visible: true,
     },
     {
+      menu_name: "Registration",
+      menu_url: "home/registration",
+      menu_icon: "account-icon.png",
+      submenuservice: [],
+      visible: true,
+    },
+    {
       menu_name: "Billing",
       menu_url: "home/billing",
       menu_icon: "account-icon.png",
@@ -166,7 +173,7 @@ export default function AppLayout({ children }) {
         },
         {
           menu_name: "Admission",
-          menu_url: "home/registerpatient",
+          menu_url: "home/patientadmission",
 
           visible: false,
         },
@@ -192,7 +199,7 @@ export default function AppLayout({ children }) {
       submenuservice: [
         {
           menu_name: "Lab Item Master",
-          menu_url: "home/lab",
+          menu_url: "home/template/lab",
           visible: false,
         },
         {
@@ -210,6 +217,13 @@ export default function AppLayout({ children }) {
         
 
       ],
+      visible: true,
+    },
+    {
+      menu_name: "Lab Test",
+      menu_url: "home/labtest",
+      menu_icon: "account-icon.png",
+      submenuservice: [],
       visible: true,
     },
     {
