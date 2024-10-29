@@ -1,5 +1,6 @@
 import Table from "react-bootstrap/Table";
 import "./Patienttable.css";
+import { useState } from "react";
 export function Patienttable({
   startDate,
   toDate,
@@ -7,6 +8,7 @@ export function Patienttable({
   docName,
   treatmentName,
 }) {
+  const [searchValue,setSearchValue]=useState("")
   const tableHeader = [
     {
       name: "Consultaion Date",
@@ -50,7 +52,7 @@ export function Patienttable({
   const tableContent = [
     {
       date: "08-29-2024",
-      patientId: "UHID 287",
+      patientId: "UHID 282",
       patientName: "Mrs. Monica",
       gender: "female",
       dob: "23-Jan-2000",
@@ -65,7 +67,7 @@ export function Patienttable({
     },
     {
       date: "07-09-2024",
-      patientId: "UHID 287",
+      patientId: "UHID 283",
       patientName: "Mrs. Monica",
       gender: "female",
       dob: "23-Jan-2000",
@@ -80,7 +82,7 @@ export function Patienttable({
     },
     {
       date: "08-31-2024",
-      patientId: "UHID 287",
+      patientId: "UHID 284",
       patientName: "Mrs. Monica",
       gender: "female",
       dob: "23-Jan-2000",
@@ -95,7 +97,7 @@ export function Patienttable({
     },
     {
       date: "09-2-2024",
-      patientId: "UHID 287",
+      patientId: "UHID 286",
       patientName: "Mrs. Monica",
       gender: "female",
       dob: "23-Jan-2000",
@@ -110,7 +112,7 @@ export function Patienttable({
     },
     {
       date: "10-08-2024",
-      patientId: "UHID 287",
+      patientId: "UHID 285",
       patientName: "Mrs. Monica",
       gender: "female",
       dob: "23-Jan-2000",
@@ -150,13 +152,18 @@ export function Patienttable({
       docName === "All" ||
       docName.toLowerCase() === tabdata.doctorName?.toLowerCase();
     const filtTreat =
-      treatmentName == "All" ||
+      treatmentName === "All" ||
       tabdata.treatment?.toLowerCase() === treatmentName.toLowerCase();
-
-    return filtDate && filtdoc && filtTreat;
+const searchTerm = tabdata.patientId ? tabdata.patientId.toLowerCase().includes((searchValue?.toLowerCase())) : true;
+    return filtDate && filtdoc && filtTreat && searchTerm;
   });
   return (
+<div>
+<div className="d-flex align-items-center justify-content-end" style={{width:"100%"}}>
+      <input className="patient-table-search-input" placeholder="Search Patient Id" type="text" value={searchValue} onChange={(e)=>setSearchValue(e.target.value)}></input>
+      </div>
     <Table responsive>
+      
       <thead className="patienttable-head-container">
         <tr>
           {[...tableHeader].map((ele, index) => (
@@ -194,5 +201,6 @@ export function Patienttable({
         })}
       </tbody>
     </Table>
+    </div>
   );
 }

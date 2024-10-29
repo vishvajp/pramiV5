@@ -36,7 +36,6 @@ import Paymentmodal from "./Paymentmodal";
 import IntroPage from "./IntroPage";
 import DoctorFee from "./DoctorFee";
 import AboutDoctorEdit from "./AboutDoctorEdit";
-
 import AccessControl from "./AccessControl";
 import AdminSetting from "./AdminSetting";
 import AddProfileModal from "./AddProfileModal";
@@ -53,6 +52,8 @@ import InventoryPage from "./InventoryPage";
 import LabTestPage from "./LabTestPage";
 import LabTestPatientMoreBut from "./LabTestPatientMoreBut";
 import RegistrationPage from "./RegistrationPage";
+import HomeCareItem from "./HomeCareItem";
+import PatientTreatpage from "./PatientTreatpage";
 
 function App() {
   const [docDetailData, setDocDetailData] = useState();
@@ -262,7 +263,7 @@ function App() {
           }
         ></Route>
         <Route
-          path="home/patient/treatment"
+          path="home/patient/medicine"
           element={
             <AppLayout>
               <PateientTreatment />
@@ -389,6 +390,22 @@ function App() {
         element={
           <AppLayout>
             <RegistrationPage/>
+            </AppLayout>
+        }
+        ></Route>
+        <Route 
+        path ="home/template/homecare"
+        element={
+          <AppLayout>
+            <HomeCareItem/>
+            </AppLayout>
+        }
+        ></Route>
+          <Route 
+        path ="home/patient/treatment"
+        element={
+          <AppLayout>
+            <PatientTreatpage/>
             </AppLayout>
         }
         ></Route>

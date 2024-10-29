@@ -3,10 +3,15 @@ import "./AboutDoctor.css";
 import { FaRegEdit } from "react-icons/fa";
 import { FaPencil } from "react-icons/fa6";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 const AboutDoctor = () => {
+
+  const location = useLocation()
+
+  const userdata = location.state
+  console.log(userdata)
 
   const editNavigate = useNavigate()
 
@@ -48,10 +53,10 @@ const AboutDoctor = () => {
 
           <div className="profile-docname-div ms-2 ">
             <p className="text-white mt-4 profile-doc-name">
-              Dr. Karunakaran S
+             {userdata.doc.name}
             </p>
             <span className="text-warning profile-doc-designation">
-              spine Surgeon
+             {userdata.doc.role}
             </span>
           </div>
           <div className="profile-vertical-line"></div>
@@ -74,33 +79,29 @@ const AboutDoctor = () => {
           <div className="col-5 profile-detail-1col">
             <div className="d-flex flex-column ">
               <label className="profile-input-label">E Mail ID</label>
-              <input
-                className="profile-input"
-                type="email"
-                placeholder="Karunakaran@gmail.com"
-              />
+              <span
+                className="docabout-input">
+                  karunakarandoc@gmail.com
+                  </span>
             </div>
             <div className="d-flex flex-column ">
               <label className="profile-input-label">Date Of Birth</label>
-              <input
-                className="profile-input"
-                type="text"
-                placeholder="20.12.1981"
-              />
+              <span
+                className="docabout-input"
+              >20.12.1981</span>
             </div>
             <div className="d-flex flex-column ">
               <label className="profile-input-label">Location</label>
-              <input
-                className="profile-input"
-                type="text"
-                placeholder="Adayar,Chennai"
-              />
+              <span
+                className="docabout-input"
+               
+              >Anna Nagar</span>
             </div>
             <div className="d-flex flex-column">
               <label className="docdetail-input-label">Doctor Fees</label>
               <div className="input-wrapper">
-                <span className="docdetail-rs"> Rs.</span>
-                <input type="text" className="docdetail-rs-input" />
+                <span className="docdetail-rs"> Rs.500</span>
+              
               </div>
             </div>
           </div>
@@ -119,13 +120,12 @@ const AboutDoctor = () => {
                     </option>
                   ))}
                 </select>
-                <input
-                  //   className="profile-input"
+                <span
+                    // className="profile-input"
                   type="tel"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  placeholder="Enter phone number"
-                />
+       
+        
+                >7894561230</span>
               </div>
             </div>
 
@@ -133,7 +133,7 @@ const AboutDoctor = () => {
               <label className="profile-input-label" for="Education">
                 Education
               </label>
-              <input className="profile-input" type="text" />
+              <span className="docabout-input" type="text">MBBS</span>
             </div>
             <div className="d-flex flex-column ">
               <label className="docdetail-input-label">Gender</label>
@@ -167,7 +167,7 @@ const AboutDoctor = () => {
               <label className="profile-input-label" for="Clinic">
                 Clinic Name
               </label>
-              <input className="profile-input" type="text" />
+              <span className="docabout-input">Spine Center</span>
             </div>
           </div>
         </div>

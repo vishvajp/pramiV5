@@ -5,6 +5,7 @@ import { MdCancel } from "react-icons/md";
 import { FaWeightScale } from "react-icons/fa6";
 
 const ParameterModal = ({ isModalOpen, handleOk, handleCancel }) => {
+  const [labTitle, setLabTitle] = useState("Parameter");
   return (
     <div>
       <Modal open={isModalOpen} onOk={handleOk}>
@@ -14,11 +15,53 @@ const ParameterModal = ({ isModalOpen, handleOk, handleCancel }) => {
             <MdCancel className="parameter-1st-div-cancel" />
           </span>
         </div>
+        <div className="d-flex justify-content-center gap-2 mt-2">
+        <span
+          onClick={() => {
+            setLabTitle("Parameter");
+          }}
+          className="menu-lab-heading"
+          style={{
+            color: labTitle === "Parameter" ? "white" : "black",
+            backgroundColor:
+              labTitle === "Parameter" ? "Green" : "gainsboro",
+          }}
+        >
+      Parameter
+        </span>
+        <span
+          onClick={() => {
+            setLabTitle("History");
+          }}
+          className="menu-lab-heading"
+          style={{
+            color: labTitle === "History" ? "white" : "black",
+            backgroundColor:
+              labTitle === "History" ? "Green" : "gainsboro",
+          }}
+        >
+        History
+        </span>
+        <span
+          onClick={() => {
+            setLabTitle("Notes");
+          }}
+          className="menu-lab-heading"
+          style={{
+            color: labTitle === "Notes" ? "white" : "black",
+            backgroundColor:
+              labTitle === "Notes" ? "Green" : "gainsboro",
+          }}
+        >
+      Notes
+        </span>
+      </div>
+      {labTitle==="Parameter" &&   <div>
         <div className="row parameter-1st-rwo">
           <div className="col  ">
             <div className="d-flex parameter-1col-container mt-3">
               <div className="d-flex align-items-center m-2">
-                <FaWeightScale style={{ width: "30px", height: "30px" }} />
+                <img src="/loginimages/Line.png" style={{ width: "30px", height: "30px" }} />
               </div>
               <div className="d-flex flex-column me-2">
                 <label className="docdetail-input-label">BP (Mm/ Hg)</label>
@@ -227,6 +270,8 @@ const ParameterModal = ({ isModalOpen, handleOk, handleCancel }) => {
           </button>
           <button className="parameter-save-button">SAVE</button>
         </div>
+        </div>}
+    
       </Modal>
     </div>
   );

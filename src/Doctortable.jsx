@@ -5,9 +5,9 @@ import { Link, useNavigate } from "react-router-dom";
 export function Doctortable() {
   const doctorAboutNavigate = useNavigate();
 
-  const handlenavigate = () => {
+  const handlenavigate = (doc) => {
     console.log("treem");
-    doctorAboutNavigate("about");
+    doctorAboutNavigate("about",{state:{doc}});
   };
 
   const tableHeader = [
@@ -125,9 +125,9 @@ export function Doctortable() {
     );
   };
 
-  const RefreshIcons = () => {
+  const RefreshIcons = ({user}) => {
     return (
-      <div onClick={handlenavigate} className="doc-refresh-icons-container">
+      <div onClick={()=>handlenavigate(user)} className="doc-refresh-icons-container">
       <div className="doc-refresh-icons-div ">
         <p className="doc-more mb-0">More</p>
         <p className="doc-details">Details...</p>
@@ -173,7 +173,7 @@ export function Doctortable() {
                   ) : (
                     element[rowData]
                   )}
-                  {rowData === "button" && <RefreshIcons />}
+                  {rowData === "button" && <RefreshIcons user={element} />}
                   {colIndex !== Object.keys(element).length - 1 && <div className="table-header-div"></div>}
                 </td>
                 );

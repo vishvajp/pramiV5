@@ -162,13 +162,19 @@ export default function AppLayout({ children }) {
           visible: false,
         },
         {
+          menu_name: "Treatment",
+          menu_url: "home/patient/treatment",
+          visible:false,
+          
+        },
+        {
           menu_name: "Consents",
           menu_url: "home/patient/consents",
           visible: false,
         },
         {
           menu_name: "Medicine",
-          menu_url: "home/patient/treatment",
+          menu_url: "home/patient/medicine",
           visible: false,
         },
         {
@@ -185,13 +191,7 @@ export default function AppLayout({ children }) {
       ],
       visible: true,
     },
-    // {
-    //   menu_name: "Treatment",
-    //   menu_url: "home/treatment",
-    //   menu_icon: "account-icon.png",
-    //   submenuservice: [],
-    //   visible: true,
-    // },
+   
     {
       menu_name: "Template",
       menu_url: "home/template",
@@ -212,6 +212,12 @@ export default function AppLayout({ children }) {
           
             menu_name: "Physio Item Master",
             menu_url: "home/template/Physiotherapy",
+            visible: false,
+          },
+          {
+          
+            menu_name: "Homecare Item Master",
+            menu_url: "home/template/homecare",
             visible: false,
           },
         
