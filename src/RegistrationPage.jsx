@@ -1,10 +1,17 @@
 import React, { useState } from "react";
 import Table from "react-bootstrap/Table";
 import RegistrationModal from "./RegistrationModal";
+import { useNavigate } from "react-router-dom";
 const RegistrationPage = () => {
   const [basicisModalOpen, basicsetIsModalOpen] = useState(false);
 
   const [searchInput, setSearchInput] = useState("");
+  const [elementInput, setElementInput]=useState()
+  const navToRegisterMore = useNavigate()
+
+const handleNavToSpecPat = (element)=>{
+navToRegisterMore("/home/register/moredetail" , {state:{element}})
+}
 
   const basicshowModal = () => {
     basicsetIsModalOpen(true);
@@ -55,13 +62,7 @@ const RegistrationPage = () => {
       marital_status: "Married",
       gender: "female",
       age: "34",
-      action: (
-        <div>
-          <button className="registerpatient-table-update-button">
-            UPDATE
-          </button>
-        </div>
-      ),
+      action: "",
     },
     {
       reg_No: "Ih475",
@@ -72,13 +73,7 @@ const RegistrationPage = () => {
       marital_status: "Married",
       gender: "female",
       age: "34",
-      action: (
-        <div>
-          <button className="registerpatient-table-update-button">
-            UPDATE
-          </button>
-        </div>
-      ),
+      action: "",
     },
     {
       reg_No: "Ih475",
@@ -89,13 +84,7 @@ const RegistrationPage = () => {
       marital_status: "Married",
       gender: "female",
       age: "34",
-      action: (
-        <div>
-          <button className="registerpatient-table-update-button">
-            UPDATE
-          </button>
-        </div>
-      ),
+      action: "",
     },
     {
       reg_No: "Ih475",
@@ -106,13 +95,7 @@ const RegistrationPage = () => {
       marital_status: "Married",
       gender: "male",
       age: "28",
-      action: (
-        <div>
-          <button className="registerpatient-table-update-button">
-            UPDATE
-          </button>
-        </div>
-      ),
+      action: "",
     },
     {
       reg_No: "Ih475",
@@ -123,13 +106,7 @@ const RegistrationPage = () => {
       marital_status: "Married",
       gender: "male",
       age: "28",
-      action: (
-        <div>
-          <button className="registerpatient-table-update-button">
-            UPDATE
-          </button>
-        </div>
-      ),
+      action: "",
     },
     {
       reg_No: "Ih475",
@@ -140,15 +117,21 @@ const RegistrationPage = () => {
       marital_status: "Married",
       gender: "male",
       age: "28",
-      action: (
-        <div>
-          <button className="registerpatient-table-update-button">
-            UPDATE
-          </button>
-        </div>
-      ),
+      action: "",
     },
   ];
+
+  const RefreshIcons = ({ element }) => {
+    return (
+      <div className="refresh-icons-container justify-content-center">
+       <div>
+          <button onClick={()=>handleNavToSpecPat(element)} className="registerpatient-table-update-button">
+            More Details
+          </button>
+        </div>    
+      </div>
+    );
+  };
 
   const filteredItem = tableContent.filter((tab) => {
     const searchTerm = tab.mobile && tab.mobile.includes(searchInput);
@@ -198,6 +181,9 @@ const RegistrationPage = () => {
               return (
                 <tr className="patienttable-body-row-container">
                   {Object.keys(element).map((rowData, cellIndex) => {
+                    if (cellIndex === Object.keys(element).length - 1) { 
+                      return <RefreshIcons element={element} />;
+                    }
                     return (
                       <td className="patienttable-body-row" key={cellIndex}>
                         {cellIndex < Object.keys(element).length - 1 ? (

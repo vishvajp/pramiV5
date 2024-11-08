@@ -17,6 +17,7 @@ const Appointment = () => {
   const [selectClinic, setSelectClinic] = useState("All");
   const [selectDoctor, setSelectDoctor] = useState("All");
   const [selectTreatment, setSelectTreatment] = useState("All Treatment");
+  const [searchpatient,setSearchPatient]=useState("")
 
   const [chooseDays, setChooseDays] = useState("Appointment List");
   const [toDate, setToDate] = useState();
@@ -177,7 +178,7 @@ const Appointment = () => {
             customInput={<CustomInput />}
           />
         </div>
-        <div className="d-flex flex-column col ">
+        {/* <div className="d-flex flex-column col ">
           <label className="docdetail-input-label" for="Education">
             Hospital / Clinic
           </label>
@@ -191,7 +192,7 @@ const Appointment = () => {
             <option>Sunshine</option>
             <option>Testing</option>
           </select>
-        </div>
+        </div> */}
 
         <div className="d-flex flex-column col">
           <label className="docdetail-input-label" for="Education">
@@ -244,6 +245,8 @@ const Appointment = () => {
                 placeholder="Search Booked Patient"
                 type="text"
                 className="appointment-search-input"
+                value={searchpatient}
+                onChange={(e)=>{setSearchPatient(e.target.value)}}
               />
             </div>
           </div>
@@ -256,6 +259,7 @@ const Appointment = () => {
           showModalPayment={showModalPayment}
           toDate={toDate}
           setSelectDoctor={setSelectDoctor}
+          searchpatient = {searchpatient}
         ></AppointmentTable>
       </div>
       <ParameterModal

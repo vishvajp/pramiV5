@@ -32,7 +32,7 @@ const RegistrationModal = ({
           <div className="col">
             <div className="d-flex flex-column gap-3">
               <div className="d-flex flex-column">
-                <label className="registration-modal-label">Date</label>
+                <label className="registration-modal-label">Registration Date</label>
                 <DatePicker
                   selected={startDate}
                   onChange={(date) => setStartDate(date)}
@@ -40,7 +40,7 @@ const RegistrationModal = ({
                 />
               </div>
               <div className="d-flex flex-column">
-                <lable className="registration-modal-label">Name</lable>
+                <lable className="registration-modal-label">Patient Name</lable>
                 <input className="registration-modal-input" type="text"></input>
               </div>
               <div className="d-flex flex-column">
@@ -48,13 +48,10 @@ const RegistrationModal = ({
                 <input className="registration-modal-input" type="tel"></input>
               </div>
               <div className="d-flex flex-column">
-                <lable className="registration-modal-label">Occupation</lable>
+                <lable className="registration-modal-label">Patient Occupation</lable>
                 <input className="registration-modal-input" type="text"></input>
               </div>
-              <div className="d-flex flex-column">
-                <lable className="registration-modal-label">Marital Status</lable>
-                <input className="registration-modal-input" type="text"></input>
-              </div>
+            
               <div className="d-flex">
               <div className="d-flex ">
                 <input type="radio"></input>
@@ -86,13 +83,10 @@ const RegistrationModal = ({
             <input className="registration-modal-input" type="text"></input>
               </div>
               <div className="d-flex flex-column">
-            <label className="registration-modal-label">Weight in Kg</label>
-            <input className="registration-modal-input" type="text"></input>
+                <lable className="registration-modal-label">Marital Status</lable>
+                <input className="registration-modal-input" type="text"></input>
               </div>
-              <div className="d-flex flex-column">
-            <label className="registration-modal-label">Height in Cm</label>
-            <input className="registration-modal-input" type="text"></input>
-              </div>
+              
             </div>
           </div>
         </div>

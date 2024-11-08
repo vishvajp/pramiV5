@@ -112,6 +112,7 @@
   height: 30px;
   padding-left: 10px;
   box-shadow: 0px 2px rgb(147, 147, 147);
+  background-color: white;
 }
 
 .patientbooking-input-checkbox {
@@ -150,7 +151,7 @@
   height: 30px;
   border-radius: 5px;
   width: 100%;
-
+background-color: white;
   border: none;
   box-shadow: 0px 2px rgb(79, 79, 79);
   margin-right: 5px;
@@ -216,6 +217,17 @@
   padding: 3px 10px;
   font-weight: 500;
   border-radius: 5px;
+}
+
+.patientBooking-time-slot:hover {
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+.selected-slot {
+  background-color: #4caf50; /* Green background for selected slot */
+  color: white; /* White text for selected slot */
+  font-weight: bold;
 }
 @media screen and (max-width: 1440px) {
   .patientbooking-createevent-text {

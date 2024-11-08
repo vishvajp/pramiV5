@@ -6,19 +6,44 @@ import { TiPencil } from "react-icons/ti";
 import { FaCalendarAlt } from "react-icons/fa";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
+import axios from "axios";
 
-const PatientBooking = ({ isModalOpen, handleOk, handleCancel,setIsModalOpen }) => {
+
+const PatientBooking = ({
+  isModalOpen,
+  handleOk,
+  handleCancel,
+  setIsModalOpen,
+}) => {
   const [startDate, setStartDate] = useState(null);
   const [selectedDoctor, setSelectedDoctor] = useState(null);
   const [availableSlots, setAvailableSlots] = useState([]);
   const [eventDate, setEventDate] = useState(null);
-  const [treatmentType,setTreatmentType]=useState()
+  const [treatmentType, setTreatmentType] = useState();
   const [createEve, setCreateEve] = useState(true);
+  const [selectedSlot, setSelectedSlot] = useState(null);
+  const [patientName, setPatientName] = useState("");
+  const [patientMobile, setPatientMobile] = useState("");
+  const [clinic, setClinic] = useState("");
+  const [appointmentType, setAppointmentType] = useState("");
+  const [referralSource, setReferralSource] = useState("");
+  const [visitReason, setVisitReason] = useState("");
+  const [physioAsset, setPhysioAsset] = useState("")
+  const [errors, setErrors] = useState({});
 
-const handleTreatmentType = (e)=>{
-  setTreatmentType(e.target.value)
-}
-console.log(treatmentType)
+  const date = new Date(selectedSlot);
+  const customFormattedTime = date.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true // '7:00:00 PM'
+  });
+  const handleTreatmentType = (e) => {
+    setTreatmentType(e.target.value);
+  };
+  console.log(treatmentType);
+
+  console.log(selectedSlot)
 
   const CustomInput = ({ value, onClick }) => (
     <button className="patientBooking-date-input" onClick={onClick}>
@@ -28,7 +53,7 @@ console.log(treatmentType)
   console.log(createEve);
   const data = [
     {
-      name: "Dr Rohit",
+      name: "Dr Karunakaran",
       experience: "2 years",
       specialization: "Spine",
       email: "doc1@gmail.com",
@@ -42,12 +67,15 @@ console.log(treatmentType)
       achievements: "Got MEd",
       clinic: "Spine Clinic",
       dayandtime: [
-        { day: "sunday", time: { from: "11AM", to: "1PM" } },
-        { day: "saturday", time: { from: "6PM", to: "9PM" } },
+        { day: "monday", time: { from: "6:30PM", to: "10PM" } },
+        { day: "tuesday", time: { from: "5PM", to: "9PM" } },
+        { day: "wednesday", time: { from: "5PM", to: "9PM" } },
+        { day: "thursday", time: { from: "5PM", to: "9PM" } },
+        { day: "friday", time: { from: "5PM", to: "9PM" } },
       ],
     },
     {
-      name: "Dr James",
+      name: "Dr Krishnakumar",
       experience: "2 years",
       specialization: "nuero",
       email: "doc1@gmail.com",
@@ -62,11 +90,14 @@ console.log(treatmentType)
       clinic: "Spine Clinic",
       dayandtime: [
         { day: "monday", time: { from: "9AM", to: "11AM" } },
-        { day: "wednesday", time: { from: "6PM", to: "9PM" } },
+        { day: "tuesday", time: { from: "9AM", to: "11AM" } },
+        { day: "wednesday", time: { from: "9AM", to: "11AM" } },
+        { day: "thursday", time: { from: "9AM", to: "11AM" } },
+        { day: "friday", time: { from: "9AM", to: "11AM" } },
       ],
     },
     {
-      name: "Dr Chris",
+      name: "Physiotherapy",
       experience: "2 years",
       specialization: "Spine",
       email: "doc1@gmail.com",
@@ -80,11 +111,17 @@ console.log(treatmentType)
       achievements: "Got MEd",
       clinic: "Spine Clinic",
       dayandtime: [
-        { day: "sunday", time: { from: "9AM", to: "12PM" } },
-        { day: "friday", time: { from: "4PM", to: "8PM" } },
+        { day: "monday", time: { from: "9AM", to: "10PM" } },
+        { day: "tuesday", time: { from: "9AM", to: "10PM" } },
+        { day: "wednesday", time: { from: "9AM", to: "10PM" } },
+        { day: "thursday", time: { from: "9AM", to: "10PM" } },
+        { day: "friday", time: { from: "9AM", to: "10PM" } },
+
       ],
     },
   ];
+
+   
 
   const handleDoctorChange = (event) => {
     const doctor = data.find((doc) => doc.name === event.target.value);
@@ -114,13 +151,18 @@ console.log(treatmentType)
     if (availableTime) {
       const { from, to } = availableTime.time;
 
+      // Parse the start and end times (including minutes)
+      const { hours: startHour, minutes: startMinutes } = parseTime(from);
+      const { hours: endHour, minutes: endMinutes } = parseTime(to);
+
       // Create start and end times based on the doctor's availability
       const startTime = new Date(date);
-      const endTime = new Date(date);
+      startTime.setHours(startHour);
+      startTime.setMinutes(startMinutes);
 
-      // Set hours and minutes for start time
-      startTime.setHours(parseTime(from));
-      endTime.setHours(parseTime(to));
+      const endTime = new Date(date);
+      endTime.setHours(endHour);
+      endTime.setMinutes(endMinutes);
 
       const slots = [];
 
@@ -143,14 +185,62 @@ console.log(treatmentType)
   const parseTime = (timeString) => {
     const [time, modifier] = timeString.split(/(AM|PM)/);
     let [hours, minutes] = time.split(":").map(Number);
+
     if (modifier === "PM" && hours < 12) {
       hours += 12; // Convert PM hours to 24-hour format
     }
     if (modifier === "AM" && hours === 12) {
       hours = 0; // Convert 12 AM to 0 hours
     }
-    return hours; // Return hours
+
+    // If minutes are undefined, assume they are zero
+    minutes = minutes || 0;
+
+    return { hours, minutes }; // Return an object containing hours and minutes
   };
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault()
+    const formData = {
+      patientName,
+      patientMobile,
+      clinic,
+      doctor: selectedDoctor ? selectedDoctor.name : null,
+      appointmentType,
+      appointmentDate: startDate ,
+      treatmentType,
+      referralSource,
+      visitReason,
+      selectedSlot: customFormattedTime ? customFormattedTime : null,
+      physioAsset: physioAsset ? physioAsset : "-",
+    };
+
+    const formErrors = {};
+    if (!startDate) {
+      formErrors.startDate = "Appointment date is required"; // Add error if date is not selected
+    }
+
+    // If there are errors, update the state and stop the submission
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
+      return;
+    }
+
+
+    console.log(formData)
+
+    // try {
+    //   const response = await axios.post("YOUR_API_ENDPOINT_HERE", formData);
+   
+    //   console.log("Appointment booked successfully:", response.data);
+
+    //   handleCancel();
+    // } catch (error) {
+    
+    //   console.error("Error booking appointment:", error);
+    // }
+  };
+
   return (
     <div>
       <Modal open={isModalOpen} onOk={handleOk}>
@@ -217,28 +307,35 @@ console.log(treatmentType)
                   Create Event
                 </p>
               </div>
+              <form onSubmit={handleFormSubmit}>
               <div className="row">
                 <div className="col" style={{ padding: "10px 10px 5px 10px" }}>
                   <div className="d-flex flex-column">
                     <label className="patientbooking-input-label">
-                     Select Clinic
+                      Select Clinic
                     </label>
-                    <select name="man" id="appointment">
+                    <select
+                    required
+                     value={clinic}
+                     onChange={(e) => setClinic(e.target.value)}
+                    name="man" id="appointment">
                       <option></option>
-                      <option></option>
-                      <option></option>
-            
+                      <option>Dr. Karunakaran Spine Center</option>
+                   
                     </select>
                   </div>
                 </div>
                 <div className="col" style={{ padding: "10px 25px 5px 10px" }}>
                   <div className="d-flex flex-column">
                     <label className="patientbooking-input-label">
-                    Name Of The Patient
+                      Name Of The Patient
                     </label>
                     <input
                       className="patientbooking-2col-patient-input"
                       type="text"
+                      value={patientName}
+                      onChange={(e) => setPatientName(e.target.value)}
+                      required
                     ></input>
                   </div>
                 </div>
@@ -254,8 +351,9 @@ console.log(treatmentType)
                       name="doctor"
                       id="doctor"
                       onChange={handleDoctorChange}
+                      required
                     >
-                      <option value="">Select a doctor</option>
+                      <option value=""></option>
                       {data.map((docname) => (
                         <option key={docname.name} value={docname.name}>
                           {docname.name}
@@ -265,30 +363,36 @@ console.log(treatmentType)
                   </div>
 
                   <div className="col" style={{ padding: "0px 10px 5px 10px" }}>
-                  <div className="d-flex flex-column">
-                    <label className="patientbooking-input-label">
-                     Mobile Number
-                    </label>
-                    <input
-                      className="patientbooking-2col-patient-input"
-                      type="text"
-                    ></input>
+                    <div className="d-flex flex-column">
+                      <label className="patientbooking-input-label">
+                        Mobile Number
+                      </label>
+                      <input
+                        className="patientbooking-2col-patient-input"
+                        type="tel"
+                        value={patientMobile}
+                        onChange={(e) => setPatientMobile(e.target.value)}
+                        required
+                      ></input>
+                    </div>
                   </div>
-                </div>
                 </div>
               </div>
               <div className="d-flex mt-2 row">
-              <div className="d-flex flex-column col">
-                    <label className="patientbooking-input-label ms-3">
-                      Appointment Type
-                    </label>
-                    <select name="man" id="appointment">
-                      <option></option>
-                      <option>New Appointment</option>
-                      <option>Follow Up</option>
-            
-                    </select>
-                  </div>
+                <div className="d-flex flex-column col">
+                  <label className="patientbooking-input-label ms-3">
+                    Appointment Type
+                  </label>
+                  <select 
+                  required
+                   value={appointmentType}
+                   onChange={(e) => setAppointmentType(e.target.value)}
+                  name="man" id="appointment">
+                    <option></option>
+                    <option>New Appointment</option>
+                    <option>Follow Up</option>
+                  </select>
+                </div>
                 <div className="d-flex flex-column col">
                   <label className="patientbooking-input-label ms-3">
                     Appointment Date
@@ -298,7 +402,10 @@ console.log(treatmentType)
                     minDate={new Date()}
                     onChange={handleDateChange}
                     customInput={<CustomInput />}
+                    // required
                   />
+                   {errors.startDate && <p className="error">{errors.startDate}</p>} {/* Show error if date is not selected */}
+        
                 </div>
               </div>
               <div className="mt-2">
@@ -308,32 +415,43 @@ console.log(treatmentType)
                       <label className="patientbooking-input-label ms-3">
                         Treatment Type
                       </label>
-                      <select name="man" id="appointment" onChange={handleTreatmentType}>
+                      <select
+                      required
+                        name="man"
+                        id="appointment"
+                        onChange={handleTreatmentType}
+                      >
                         <option></option>
                         <option value="Consulatation">Consulataiton</option>
-                      <option value="Clinic Physio Asset">Clinic Physio Asset</option>
-                     <option value = "Home Care Asset">Home Care Asset</option>
+                        <option value="Clinic Physio Asset">
+                          Clinic Physio Asset
+                        </option>
+                        <option value="Home Care Asset">Home Care Asset</option>
                       </select>
                     </div>
                     <div className="d-flex flex-column col">
-                  {availableSlots.length > 0 ? (
-                    <>
-                      {/* First Row (4 slots) */}
-                      <div className="d-flex flex-wrap ">
-                        {availableSlots.slice(0, 4).map((slot, index) => (
-                          <div
-                            key={index}
-                            className="patientBooking-time-slot ms-1"
-                          >
-                            {slot.toLocaleTimeString([], {
-                              hour: "2-digit",
-                              minute: "2-digit",
-                            })}
+                      {availableSlots.length > 0 ? (
+                        <>
+                          {/* First Row (4 slots) */}
+                          <div className="d-flex flex-wrap mb-1">
+                            {availableSlots.map((slot, index) => (
+                              <div
+                                key={index}
+                                className={`patientBooking-time-slot ms-1 mb-1 ${
+                                  selectedSlot === slot ? "selected-slot" : ""
+                                }`}
+                                onClick={() => setSelectedSlot(slot)} // Update the selected slot state
+                              >
+                                {slot.toLocaleTimeString([], {
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                                })}
+                              </div>
+                            ))}
                           </div>
-                        ))}
-                      </div>
-                      {/* Second Row (2 slots) */}
-                      {availableSlots.length > 4 && (
+
+                          {/* Second Row (2 slots) */}
+                          {/* {availableSlots.length > 4 && (
                         <div className="d-flex flex-wrap mt-1">
                           {availableSlots.slice(4, 6).map((slot, index) => (
                             <div
@@ -347,45 +465,83 @@ console.log(treatmentType)
                             </div>
                           ))}
                         </div>
+                      )} */}
+                        </>
+                      ) : (
+                        <div className="mt-4">
+                          <span className="patientBooking-time-slot">
+                            No Slots available
+                          </span>
+                        </div>
                       )}
-                    </>
-                  ) : (
-                    <div className="mt-4">
-                      <span className="patientBooking-time-slot">
-                        No Slots available
-                      </span>
                     </div>
-                  )}
-                </div>
                   </div>
-                  {treatmentType==="Clinic Physio Asset" &&
-                  <div className="d-flex flex-column mt-2 ">
+                  {treatmentType === "Clinic Physio Asset" && (
+                    <div className="d-flex flex-column mt-2 ">
                       <label className="patientbooking-input-label ms-3">
-                      Clinic Physio Asset
+                        Clinic Physio Asset
                       </label>
-                      <select  id="appointment">
+                      <select id="appointment" value={physioAsset}  onChange={(e)=>setPhysioAsset(e.target.value)}>
                         <option value=""></option>
-                        <option value="Super Inductive System">Super Inductive System</option>
+                        <option value="Super Inductive System">
+                          Super Inductive System
+                        </option>
                         <option value="Tecar Therapy">Tecar Therapy</option>
-                        <option value="Shockwave Therapy">Shockwave Therapy</option>
-                        <option value="Dry Needling Therapy">Dry Needling Therapy</option>
+                        <option value="Shockwave Therapy">
+                          Shockwave Therapy
+                        </option>
+                        <option value="Dry Needling Therapy">
+                          Dry Needling Therapy
+                        </option>
                         <option value="Tapping Therapy">Tapping Therapy</option>
                         <option value="Laser Therapy">Laser Therapy</option>
                         <option value="Pens Therapy">Pens Therapy</option>
-                        <option value="UST,IFT,TENS,MST,RST,TRACTION">UST,IFT,TENS,MST,RST,TRACTION</option>
+                        <option value="UST,IFT,TENS,MST,RST,TRACTION">
+                          UST,IFT,TENS,MST,RST,TRACTION
+                        </option>
                         <option value="Cryotherapy">Cryotherapy</option>
                       </select>
                     </div>
-                    }
-                  <div className="d-flex flex-column mt-2 ">
+                  )}
+                   {treatmentType === "Home Care Asset" && (
+                    <div className="d-flex flex-column mt-2 ">
                       <label className="patientbooking-input-label ms-3">
-                        Referral Source
+                        Home Care Physio Asset
                       </label>
-                      <input
+                      <select id="appointment" value={physioAsset}  onChange={(e)=>setPhysioAsset(e.target.value)}>
+                        <option value=""></option>
+                        <option value="Super Inductive System">
+                          Super Inductive System
+                        </option>
+                        <option value="Tecar Therapy">Tecar Therapy</option>
+                        <option value="Shockwave Therapy">
+                          Shockwave Therapy
+                        </option>
+                        <option value="Dry Needling Therapy">
+                          Dry Needling Therapy
+                        </option>
+                        <option value="Tapping Therapy">Tapping Therapy</option>
+                        <option value="Laser Therapy">Laser Therapy</option>
+                        <option value="Pens Therapy">Pens Therapy</option>
+                        <option value="UST,IFT,TENS,MST,RST,TRACTION">
+                          UST,IFT,TENS,MST,RST,TRACTION
+                        </option>
+                        <option value="Cryotherapy">Cryotherapy</option>
+                      </select>
+                    </div>
+                  )}
+                  <div className="d-flex flex-column mt-2 ">
+                    <label className="patientbooking-input-label ms-3">
+                      Referral Source
+                    </label>
+                    <input
                       className="patientbooking-referal-input"
                       type="text"
+                      value={referralSource}
+                      onChange={(e)=>{setReferralSource(e.target.value)}}
+                    
                     ></input>
-                    </div>
+                  </div>
 
                   <div
                     className="d-flex align-items-center"
@@ -399,6 +555,8 @@ console.log(treatmentType)
                     <input
                       className="patientbooking-2col-patient-input"
                       type="text"
+                      value={visitReason}
+                      onChange={(e)=>{setVisitReason(e.target.value)}}
                     />
                   </div>
                 </div>
@@ -432,13 +590,16 @@ console.log(treatmentType)
                   {" "}
                   + ADD PATIENT
                 </button>
-                <button className="patientbooking-bookappointment-button">
+                <button className="patientbooking-bookappointment-button"  type="submit" >
                   {" "}
                   BOOK APOINTMENT
                 </button>
+                
               </div>
+              </form>
             </div>
           </div>
+          
         )}
         {!createEve && (
           <div className="row">
@@ -454,9 +615,10 @@ console.log(treatmentType)
                 </div>
               </div>
               <span
-               onClick={()=>{
-                setCreateEve(true)
-                setIsModalOpen(false)}} 
+                onClick={() => {
+                  setCreateEve(true);
+                  setIsModalOpen(false);
+                }}
                 className="patientbooking-1stdiv-cancelspan"
               >
                 <MdCancel className="patientbooking-1st-div-cancel" />

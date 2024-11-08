@@ -7,6 +7,7 @@ import { FaPlayCircle } from "react-icons/fa";
 import { GiCancel } from "react-icons/gi";
 import { LuRefreshCw } from "react-icons/lu";
 import { AiOutlineHistory } from "react-icons/ai";
+import RescheduleAppointment from "./RescheduleAppointment";
 
 export function AppointmentTable({
   showModal,
@@ -16,7 +17,21 @@ export function AppointmentTable({
   selectTreatment,
   toDate,
   chooseDays,
+  searchpatient,
 }) {
+  const [isModalOpenReschdule, setIsModalOpenReschedule] = useState(false);
+  const showModalReschdule = () => {
+    setIsModalOpenReschedule(true);
+  };
+  const handleOkReschedule = () => {
+    setIsModalOpenReschedule(false);
+  };
+  const handleCancelReschedule = () => {
+    setIsModalOpenReschedule(false);
+  };
+
+  const [specificPatient, setSpecificPatient] = useState();
+
   const tableHeader = [
     {
       name: "Time",
@@ -33,9 +48,9 @@ export function AppointmentTable({
     {
       name: "Patient Name",
     },
-    {
-      name: "Age & Gender",
-    },
+    // {
+    //   name: "Age & Gender",
+    // },
     {
       name: "Contact Number",
     },
@@ -49,18 +64,28 @@ export function AppointmentTable({
       name: "Treatment",
     },
     {
-      name: "Due(INR)",
+      name:"Asset"
+    },
+    // {
+    //   name: "Due(INR)",
+    // },
+    {
+      name:"Appointment Type"
+    },
+    {
+      name:"Referal Source"
     },
     {
       name: "",
     },
   ];
 
-  const baseUrl = "https://tabsquareinfotech.com/App/Abinesh_be_work/tsit_prami/build"
+  const baseUrl =
+    "https://tabsquareinfotech.com/App/Abinesh_be_work/tsit_prami/build";
   const tableContent = [
     {
-      Time: "10.00 AM",
-      Date: "10-12-2024",
+      selectedSlot: "10.00 AM",
+      appointmentDate: "10-12-2024",
       checkin: (
         <div>
           <img
@@ -70,18 +95,46 @@ export function AppointmentTable({
         </div>
       ),
       token: "23",
-      patientname: "Mrs vijayalakshmi a",
+      patientName: "Mrs vijayalakshmi a",
       age: "23 Y female",
-      contactnumber: "213123123",
+      patientMobile: "213123123",
       status: "started",
-      doctorname: "Dr Kumaran",
-      treatment: "Consultation",
+      doctor: "Dr Kumaran",
+      treatmentType: "Consultation",
+      physioAsset:"-",
       due: "23",
+      appointmentType:"Follow Up",
+      referalSource:"none",
+      refresh: "",
+      
+    },
+    {
+      selectedSlot: "10.00 AM",
+      appointmentDate: "10-12-2024",
+      checkin: (
+        <div>
+          <img
+            style={{ width: "28px", height: "32px" }}
+            src={`${baseUrl}/loginimages/out.png`}
+          ></img>
+        </div>
+      ),
+      token: "23",
+      patientName: "Mrs vijayalakshmi s",
+      age: "23 Y female",
+      patientMobile: "213123123",
+      status: "started",
+      doctor: "Dr Kumaran",
+      treatmentType: "Consultation",
+      physioAsset:"-",
+      due: "23",
+      appointmentType:"Follow Up",
+      referalSource:"none",
       refresh: "",
     },
     {
-      Time: "10.00 AM",
-      Date: "10-12-2024",
+      selectedSlot: "10.00 AM",
+      appointmentDate: "08-27-2024",
       checkin: (
         <div>
           <img
@@ -91,18 +144,21 @@ export function AppointmentTable({
         </div>
       ),
       token: "23",
-      patientname: "Mrs vijayalakshmi s",
+      patientName: "Mrs vijaya",
       age: "23 Y female",
-      contactnumber: "213123123",
+      patientMobile: "213123123",
       status: "started",
-      doctorname: "Dr Kumaran",
-      treatment: "Consultation",
+      doctor: "Dr Karunakarn",
+      treatmentType: "Asset Physiotherapy",
+      physioAsset:"Needling Therapy",
       due: "23",
+      appointmentType:"Follow Up",
+      referalSource:"none",
       refresh: "",
     },
     {
-      Time: "10.00 AM",
-      Date: "08-27-2024",
+      selectedSlot: "10.00 AM",
+      appointmentDate: "09-25-2024",
       checkin: (
         <div>
           <img
@@ -112,18 +168,21 @@ export function AppointmentTable({
         </div>
       ),
       token: "23",
-      patientname: "Mrs vijaya",
+      patientName: "Mrs vijaya",
       age: "23 Y female",
-      contactnumber: "213123123",
+      patientMobile: "213123123",
       status: "started",
-      doctorname: "Dr Karunakarn",
-      treatment: "Asset Physiotherapy",
+      doctor: "Dr senthil",
+      treatmentType: "Asset Physiotherapy",
+      physioAsset:"Needling Therapy",
       due: "23",
+      appointmentType:"Follow Up",
+      referalSource:"none",
       refresh: "",
     },
     {
-      Time: "10.00 AM",
-      Date: "09-25-2024",
+      selectedSlot: "10.00 AM",
+      appointmentDate: "08-30-2024",
       checkin: (
         <div>
           <img
@@ -133,18 +192,21 @@ export function AppointmentTable({
         </div>
       ),
       token: "23",
-      patientname: "Mrs vijaya",
+      patientName: "Mrs vijaya",
       age: "23 Y female",
-      contactnumber: "213123123",
+      patientMobile: "213123123",
       status: "started",
-      doctorname: "Dr senthil",
-      treatment: "Asset Physiotherapy",
+      doctor: "Dr senthil",
+      treatmentType: "Physiotherapy",
+      physioAsset:"Needling Therapy",
       due: "23",
+      appointmentType:"Follow Up",
+      referalSource:"none",
       refresh: "",
     },
     {
-      Time: "10.00 AM",
-      Date: "08-30-2024",
+      selectedSlot: "10.00 AM",
+      appointmentDate: "08-31-2024",
       checkin: (
         <div>
           <img
@@ -154,34 +216,16 @@ export function AppointmentTable({
         </div>
       ),
       token: "23",
-      patientname: "Mrs vijaya",
+      patientName: "Mrs vijaya",
       age: "23 Y female",
-      contactnumber: "213123123",
+      patientMobile: "213123123",
       status: "started",
-      doctorname: "Dr senthil",
-      treatment: "Physiotherapy",
+      doctor: "Dr senthil",
+      treatmentType: "Physiotherapy",
+      physioAsset:"Needling Therapy",
       due: "23",
-      refresh: "",
-    },
-    {
-      Time: "10.00 AM",
-      Date: "08-31-2024",
-      checkin: (
-        <div>
-          <img
-            style={{ width: "28px", height: "32px" }}
-            src={`${baseUrl}/loginimages/out.png`}
-          ></img>
-        </div>
-      ),
-      token: "23",
-      patientname: "Mrs vijaya",
-      age: "23 Y female",
-      contactnumber: "213123123",
-      status: "started",
-      doctorname: "Dr senthil",
-      treatment: "Physiotherapy",
-      due: "23",
+      appointmentType:"Follow Up",
+      referalSource:"none",
       refresh: "",
     },
   ];
@@ -195,14 +239,18 @@ export function AppointmentTable({
     const isDoctor =
       selectDoctor === "All" ||
       (selectDoctor &&
-        item.doctorname?.toLowerCase() === selectDoctor.toLowerCase());
+        item.doctor?.toLowerCase() === selectDoctor.toLowerCase());
 
     const isTreatment =
       selectTreatment === "All Treatment" ||
       (selectTreatment &&
-        item.treatment?.toLowerCase() === selectTreatment.toLowerCase());
+        item.treatmentType?.toLowerCase() === selectTreatment.toLowerCase());
 
-    return isDoctor && isDateInRange && isTreatment;
+    const searchPatientName = searchpatient
+      ? item.patientName?.toLowerCase().includes(searchpatient)
+      : true;
+
+    return isDoctor && isDateInRange && isTreatment && searchPatientName;
   });
   const RefreshHead = () => {
     return (
@@ -212,7 +260,12 @@ export function AppointmentTable({
     );
   };
 
-  const RefreshIcons = () => {
+  const handleSpecPatient = (specElement) => {
+    setSpecificPatient(specElement ? specElement : "");
+    setIsModalOpenReschedule(true)
+  };
+
+  const RefreshIcons = ({ element }) => {
     return (
       <div className="refresh-icons-container">
         <div className="refresh-icons-div">
@@ -222,7 +275,7 @@ export function AppointmentTable({
             onClick={showModal}
           />
         </div>
-
+      
         <div className="refresh-icons-div">
           <FaRegMoneyBillAlt
             style={{ height: "23px", width: "23px" }}
@@ -248,6 +301,7 @@ export function AppointmentTable({
           <AiOutlineHistory
             style={{ height: "23px", width: "23px", color: "green" }}
             className="refresh-icon"
+            onClick={() => handleSpecPatient(element)}
           />
         </div>
       </div>
@@ -256,54 +310,67 @@ export function AppointmentTable({
   // console.log(...tableHeader);
 
   return (
-    <Table responsive>
-      <thead className="table-head-container">
-        <tr>
-          {[...tableHeader].map((ele, index) => (
-            <th className="table-header-col" key={index}>
-              {ele.name === "Time" || ele.name === "Status" ? (
-                <>
-                  {ele.name}
-                  <div className="table-header-div"></div>
-                  <BsArrowDownUp />
-                </>
-              ) : (
-                <>
-                  {ele.name}
-                  {index < tableHeader.length - 1 && (
+    <div>
+      <Table responsive>
+        <thead className="table-head-container">
+          <tr>
+            {[...tableHeader].map((ele, index) => (
+              <th className="table-header-col" key={index}>
+                {ele.name === "Time" || ele.name === "Status" ? (
+                  <>
+                    {ele.name}
                     <div className="table-header-div"></div>
-                  )}
-                </>
-              )}
+                    <BsArrowDownUp />
+                  </>
+                ) : (
+                  <>
+                    {ele.name}
+                    {index < tableHeader.length - 1 && (
+                      <div className="table-header-div"></div>
+                    )}
+                  </>
+                )}
 
-              {index === tableHeader.length - 1 && <RefreshHead />}
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {filteredItem.map((element, index) => {
-          return (
-            <tr className="table-body-row-container" key={index}>
-              {Object.keys(element).map((rowData, index) => {
-                if (index === Object.keys(element).length - 1) {
-                  return <RefreshIcons key={index} />;
-                }
-                // if (index === Object.keys(element).length - 9) {
-                //   return <Inbutton />;
-                // }
+                {index === tableHeader.length - 1 && <RefreshHead />}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {filteredItem.map((element, index) => {
+            return (
+              <tr className="table-body-row-container" key={index}>
+                {Object.keys(element).map((rowData, index) => {
+                   if (rowData === 'age' || rowData === 'due') {
+                    return null; // Skip rendering this column
+                  }
+                  if (index === Object.keys(element).length - 1) { 
+                    return <RefreshIcons element={element} />;
+                  }
+                  // if (index === Object.keys(element).length - 9) {
+                  //   return <Inbutton />;
+                  // }
 
-                return (
-                  <td className="table-body-row" key={index}>
-                    {element[rowData]}
-                    <div className="table-header-div"></div>
-                  </td>
-                );
-              })}
-            </tr>
-          );
-        })}
-      </tbody>
-    </Table>
+                  return (
+                    <td className="table-body-row" key={index}>
+                      {element[rowData]}
+                      <div className="table-header-div"></div>
+                    </td>
+                  );
+                })}
+              </tr>
+            );
+          })}
+        </tbody>
+      </Table>
+      {specificPatient && <RescheduleAppointment
+        isModalOpenReschdule={isModalOpenReschdule}
+        handleOkReschedule={handleOkReschedule}
+        handleCancelReschedule={handleCancelReschedule}
+        setIsModalOpenReschedule={setIsModalOpenReschedule}
+        specificPatient={specificPatient}
+      ></RescheduleAppointment> }
+     
+    </div>
   );
 }

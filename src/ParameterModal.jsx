@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext,useState } from "react";
 import { Modal } from "antd";
 import "./ParameterModal.css";
 import { MdCancel } from "react-icons/md";
 import { FaWeightScale } from "react-icons/fa6";
+import UserDataContext from "./Context/UserDataContext";
 
 const ParameterModal = ({ isModalOpen, handleOk, handleCancel }) => {
   const [labTitle, setLabTitle] = useState("Parameter");
+  const {baseUrl} =  useContext(UserDataContext);
   return (
     <div>
       <Modal open={isModalOpen} onOk={handleOk}>
@@ -61,7 +63,7 @@ const ParameterModal = ({ isModalOpen, handleOk, handleCancel }) => {
           <div className="col  ">
             <div className="d-flex parameter-1col-container mt-3">
               <div className="d-flex align-items-center m-2">
-                <img src="/loginimages/Line.png" style={{ width: "30px", height: "30px" }} />
+                <img src={`${baseUrl}/loginimages/bp.png`} style={{ width: "30px", height: "30px" }} />
               </div>
               <div className="d-flex flex-column me-2">
                 <label className="docdetail-input-label">BP (Mm/ Hg)</label>
